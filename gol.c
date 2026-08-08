@@ -78,7 +78,7 @@ void initialize_game(){
 
     for(int x = 0; x < GRID_WIDTH; ++x){
         for(int y = 0; y < GRID_HEIGHT; ++y){
-            grid[x][y] = (rand() % 100 < 20) ? 1 : 0; 
+            grid[x][y] = (rand() % 100 < 20); 
         }
     }
 }
@@ -88,19 +88,8 @@ void update_board(){
     for(int x = 0; x < GRID_WIDTH; ++x){
         for(int y = 0; y < GRID_HEIGHT; ++y){
             int neighbors = count_neighbors(grid, x, y);
-
-            if(grid[x][y] == 1){
-                if(neighbors == 2 || neighbors == 3)
-                    next[x][y] = 1;
-                else
-                    next[x][y] = 0;
-            }
-            else{
-                if(neighbors == 3)
-                    next[x][y] = 1;
-                else
-                    next[x][y] = 0;
-            }
+            next[x][y] = 0;
+            if((grid[x][y] && (neighbors > 1 && neighbors < 4)) || (!grid[x][y] && neighbors == 3)){next[x][y] = 1;}
         }
     }
 
